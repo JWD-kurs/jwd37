@@ -1,0 +1,89 @@
+<div ng-controller="RecordsCtrl">
+	<h1>Records</h1>
+	
+	<form>
+		<div class="form-group">
+			<label for="rtime">Time</label>
+			<input class="form-control" id="rtime" ng-model="newRecord.time" />
+		</div>
+		<div class="form-group">
+			<label for="rduration">Duration</label>
+			<input class="form-control" id="rduration" ng-model="newRecord.duration"/>
+		</div>
+		<div class="form-group">
+			<label for="rintensity">Intensity</label>
+			<input class="form-control" id="rintensity" ng-model="newRecord.intensity"/>
+		</div>
+		<div class="form-group">
+			<label for="ractivity">Activity</label>
+			<select class="form-control" id="ractivity" ng-model="newRecord.activityId">
+				<option ng-repeat="a in activities" value="{{a.id}}">{{a.name}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="ruser">Users</label>
+			<select class="form-control" id="ruser" ng-model="newRecord.userId">
+				<option ng-repeat="u in users" value="{{u.id}}">{{u.firstname}}</option>
+			</select>
+		</div>
+		
+		
+		<button class="btn btn-primary" ng-click="doAdd()">Add</button>
+	</form>
+	
+	
+	<form>
+		<div class="form-group">
+			<label for="sactivity">Activity Name</label>
+			<input ng-model="searchParams.activityName" id="sactivity" class="form-control"/>	
+		</div>
+		<div class="form-group">
+			<label for="smduration">Minimal Duration</label>
+			<input ng-model="searchParams.mDuration" id="smduration" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="sintensity">Intensity</label>	
+			<input ng-model="searchParams.intensity" id="sintensity" class="form-control">
+		</div>
+		<button class="btn btn-info" ng-click="doSearch()">Search</button>
+	</form>
+	
+	
+	<div class="btn-group">
+		<button ng-disabled="pageNum == 0" ng-click="go(-1)" class="btn btn-secondary">Previous</button>
+		
+		<button ng-disabled="pageNum == totalPages - 1" ng-click="go(1)" class="btn btn-secondary">Next</button>
+		
+	</div>
+	
+	
+	<table class="table table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Time</th>
+				<th>Duration</th>
+				<th>Intensity</th>
+				<th>Activity</th>
+				<th>User</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in records">
+				<td>{{r.time}}</td>
+				<td>{{r.duration}}</td>
+				<td>{{r.intensity}}</td>
+				<td>{{r.activityName}}</td>
+				<td>{{r.userName}}</td>
+				<td>
+					<button class="btn btn-warning" ng-click="goToEdit(r.id)">
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					</button>
+					<button class="btn btn-danger" ng-click="doDelete(r.id)">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
